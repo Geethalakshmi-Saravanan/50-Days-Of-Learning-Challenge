@@ -1,19 +1,11 @@
--- Most popular product per category (tie-breaker)
+-- Users with total spend > 1000 in last 3 days
 
-CREATE TABLE products (
-    product_id INT PRIMARY KEY,
-    category VARCHAR(10),
-    sales INT
-);
+-- Find users whose total transaction amount in the last 3 days (today + previous 2 days) is greater than 1000.
 
-INSERT INTO products VALUES
-(1, 'A', 500),
-(2, 'A', 500),
-(3, 'A', 200),
-(4, 'B', 900),
-(5, 'B', 850),
-(6, 'C', 1000),
-(7, 'C', 1000);
-
--- Find one product per category with highest sales.
--- If tie: choose the lowest product_id.
+SELECT
+    user_id,
+    SUM(amount) AS total_amount
+FROM transactions
+WHERE txn_date >= CURDATE() - INTERVAL 2 DAY
+GROUP BY user_id
+HAVING total_amount > 1000;
