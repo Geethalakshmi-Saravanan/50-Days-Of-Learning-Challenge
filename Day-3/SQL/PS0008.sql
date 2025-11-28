@@ -1,5 +1,26 @@
 -- Max order per user per day
 
+DROP TABLE IF EXISTS orders;
+
+CREATE TABLE orders (
+    order_id   INT PRIMARY KEY,
+    user_id    INT,
+    order_date DATE,
+    amount     DECIMAL(10,2)
+);
+
+INSERT INTO orders (order_id, user_id, order_date, amount) VALUES
+-- user 1, two orders same day
+(1, 1, '2025-11-01', 100.00),
+(2, 1, '2025-11-01', 250.00),   -- max for user 1 on 2025-11-01
+(3, 1, '2025-11-02', 180.00),
+-- user 2, multiple orders same day
+(4, 2, '2025-11-01', 400.00),
+(5, 2, '2025-11-01', 350.00),   -- max is 400
+(6, 2, '2025-11-03', 500.00),
+-- user 3 single orders
+(7, 3, '2025-11-01', 90.00);
+
 -- For each user and each order_date, find the order(s) with the maximum amount.
 
 -- Approach A : Correlated Subquery
