@@ -1,17 +1,27 @@
 -- Users who logged in for 3 consecutive days
 
+DROP TABLE IF EXISTS logins;
+
 CREATE TABLE logins (
-    id INT PRIMARY KEY,
-    user_id INT,
+    user_id    INT,
     login_date DATE
 );
 
-INSERT INTO logins VALUES
-(1, 101, '2025-11-01'),
-(2, 101, '2025-11-02'),
-(3, 101, '2025-11-03'),
-(4, 102, '2025-11-01'),
-(5, 102, '2025-11-05');
+INSERT INTO logins (user_id, login_date) VALUES
+-- user 1: 3 consecutive days (1,2,3)
+(1, '2025-11-01'),
+(1, '2025-11-02'),
+(1, '2025-11-03'),
+(1, '2025-11-05'),
+-- user 2: not strictly consecutive
+(2, '2025-11-01'),
+(2, '2025-11-03'),
+(2, '2025-11-04'),
+-- user 3: 3 consecutive days (10,11,12) + extra
+(3, '2025-11-10'),
+(3, '2025-11-11'),
+(3, '2025-11-12'),
+(3, '2025-11-15');
 
 -- Find all users who have logged in for 3 consecutive days.
 
