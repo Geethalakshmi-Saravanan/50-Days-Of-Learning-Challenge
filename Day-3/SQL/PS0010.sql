@@ -37,3 +37,21 @@ FROM (
     FROM sales
 ) t
 WHERE rnk = 1;
+
+-- Approach C : Tie-breaker: exactly 1 seller per day (smallest seller_id)
+SELECT
+    sale_date,
+    seller_id,
+    amount
+FROM (
+    SELECT
+        sale_date,
+        seller_id,
+        amount,
+        ROW_NUMBER() OVER (
+            PARTITION BY sale_date
+            ORDER BY amount DESC, seller_id ASC
+        ) AS rn
+    FROM sales
+) t
+WHERE rn = 1;
