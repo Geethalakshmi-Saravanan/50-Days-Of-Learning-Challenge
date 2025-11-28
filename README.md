@@ -1,38 +1,94 @@
-# 50-Days-Of-Learning-Challenge
-50 Days of Preparation Challenge — a structured learning journey focused on strengthening SQL, Python, Data Engineering concepts, problem solving, and interview readiness.
+# 50 Days of Preparation Challenge
 
-This repository tracks my day-by-day progress through:
+A structured 50-day learning journey focused on strengthening core skills in **SQL**, **Python**, and **Data Engineering**, while building consistency and interview readiness.  
+This repository documents my progress with daily problem-solving, notes, learnings, and improvements.
 
-🟦 SQL problem solving (window functions, joins, analytics, scenarios)
+---
 
-🟩 Python basics to intermediate logic building
+## 🎯 Objectives
 
-🟧 Data Engineering topics (Spark, ETL patterns, pipeline scenarios)
+- Build strong fundamentals in SQL and Python
+- Practice real interview-style questions daily  
+- Strengthen Data Engineering concepts (Spark, ETL, Pipelines, Scenarios)
+- Improve problem-solving clarity and speed  
+- Maintain consistency through disciplined daily learning  
+- Create a visible, structured learning log for future review
 
-🟪 Real interview-type questions & reasoning
+---
 
-📝 Daily notes, learnings, and summaries
 
-Each day’s folder contains:
+Every folder typically includes:
+- **Problem statements**
+- **My solutions**
+- **Corrected/optimized solutions**
+- **Reasoning / explanation**
+- **Extra practice problems** (if any)
+- **Daily summary**
 
-Problem statements
+---
 
-My solutions
+## 📘 Topics Covered (Ongoing)
 
-Improved / corrected versions
+### 🟦 SQL
+- Window functions (ROW_NUMBER, RANK, LAG, LEAD)
+- Grouping, joins, filtering logic
+- Analytical queries  
+- Consecutive-day patterns  
+- Interview-style scenarios  
+- Top-N problems with tie-breakers  
 
-Notes or reasoning
+### 🟩 Python
+- Loop logic & list manipulation  
+- Conditions, dictionaries  
+- Frequency counting  
+- Basic algorithmic thinking  
+- Clean, simple problem solving  
 
-Additional practice problems (if any)
+### 🟧 Data Engineering
+- Spark basics
+- ETL ideas and pipeline reasoning  
+- Scenario-based problem solving  
+- Performance / bottleneck analysis  
 
-The goal of this challenge is:
+### 🟪 Interview Preparation  
+- Scenario explanations  
+- Concept refresher notes  
+- Problem breakdown reasoning  
 
-Building consistency
+---
 
-Improving problem-solving speed
+## 🧭 Daily Progress
 
-Strengthening core concepts
+| Day | Status | SQL | Python | Notes |
+|-----|--------|------|--------|--------|
+| Day 1 | ✅ Completed | ✔ Basics + 2 problems | ✔ Intro level | Understanding LAG vs RN |
+| Day 2 | ✅ Completed | ✔ 4 SQL problems | ✔ 6 Python problems | Window fn confidence |
+| Day 3 | 🔄 In Progress | ✔ Strictly increasing orders, LAG deep-dive | ✔ Logic building | Continuous learning |
 
-Preparing confidently for data engineering/analytics interviews
+(*Update this table each day*)
 
-Commit-by-commit, day-by-day, this repository reflects my path toward becoming technically stronger, clearer, and interview-ready.
+---
+
+## 📈 Goal
+
+Commit-by-commit, this repository becomes a record of:
+- Growth  
+- Consistency  
+- Problem-solving improvement  
+- Interview preparedness  
+
+A personal challenge to stay focused, build discipline, and become technically stronger step-by-step.
+
+---
+
+## 🤝 Contributions
+
+This is a personal learning journey — but suggestions, optimizations, and discussions are always welcome.
+
+---
+
+## 🧡 Motivation
+
+_"Small progress every day becomes big progress over time."_  
+This repository is my space to track that progress.
+
