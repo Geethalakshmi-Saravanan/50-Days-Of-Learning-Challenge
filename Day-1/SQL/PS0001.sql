@@ -1,17 +1,24 @@
+--Top 3 spenders in last 30 days (transactions)
+
+DROP TABLE IF EXISTS transactions;
+
 CREATE TABLE transactions (
-    txn_id INT PRIMARY KEY,
-    user_id INT,
-    amount INT,
-    status VARCHAR(20),
-    txn_date DATE
+    txn_id      INT PRIMARY KEY,
+    user_id     INT,
+    amount      DECIMAL(10,2),
+    status      VARCHAR(20),
+    txn_date    DATE
 );
 
-INSERT INTO transactions VALUES
-(1, 101, 500, 'success', '2025-11-01'),
-(2, 101, 300, 'success', '2025-11-10'),
-(3, 102, 800, 'success', '2025-11-12'),
-(4, 103, 200, 'failed',  '2025-11-14'),
-(5, 104, 900, 'success', '2025-11-15');
+INSERT INTO transactions (txn_id, user_id, amount, status, txn_date) VALUES
+(1,  1, 500.00, 'success', '2025-11-20'),
+(2,  1, 200.00, 'failed',  '2025-11-19'),
+(3,  2, 700.00, 'success', '2025-11-18'),
+(4,  2, 400.00, 'success', '2025-11-10'),
+(5,  3, 900.00, 'success', '2025-11-22'),
+(6,  3, 300.00, 'success', '2025-11-21'),
+(7,  4, 150.00, 'success', '2025-11-24'),
+(8,  5, 50.00,  'success', '2025-10-15');  -- older than 30 days
 
 -- Find the top 3 users who spent the highest total amount in last 30 days, considering only status = 'success'. 
 
