@@ -14,3 +14,18 @@ INSERT INTO employees VALUES
 (5, 'B', 3500);
 
 -- Find the 2nd highest salary in each department.
+
+-- Approach A : Classic Subquery
+SELECT MAX(salary) AS second_highest_salary
+FROM employees
+WHERE salary < (SELECT MAX(salary) FROM employees);
+
+-- Approach B : Window + DENSE_RANK (handles duplicates)
+SELECT salary
+FROM (
+    SELECT
+        salary,
+        DENSE_RANK() OVER (ORDER BY salary DESC) AS rnk
+    FROM employees
+) t
+WHERE rnk = 2;
