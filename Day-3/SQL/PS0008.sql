@@ -1,19 +1,37 @@
--- Users spending > 1000 in last 2 days
+-- Max order per user per day
 
--- Transactions table : Same as PS0001
-CREATE TABLE transactions (
-    txn_id INT PRIMARY KEY,
-    user_id INT,
-    amount INT,
-    status VARCHAR(20),
-    txn_date DATE
+-- For each user and each order_date, find the order(s) with the maximum amount.
+
+-- Approach A : Correlated Subquery
+SELECT
+    o.user_id,
+    o.order_date,
+    o.order_id,
+    o.amount
+FROM orders o
+WHERE o.amount = (
+    SELECT MAX(amount)
+    FROM orders
+    WHERE user_id   = o.user_id
+      AND order_date = o.order_date
 );
 
-INSERT INTO transactions VALUES
-(1, 101, 500, 'success', '2025-11-01'),
-(2, 101, 300, 'success', '2025-11-10'),
-(3, 102, 800, 'success', '2025-11-12'),
-(4, 103, 200, 'failed',  '2025-11-14'),
-(5, 104, 900, 'success', '2025-11-15');
-
--- Find users who spent more than 1000 in the last 2 days.
+-- Approach B : Window Function + RANK (keep ties)
+SELECT
+    user_id,
+    order_date,
+    order_id,
+    amount
+FROM (
+    SELECT
+        user_id,
+        order_date,
+        order_id,
+        amount,
+        RANK() OVER (
+            PARTITION BY user_id, order_date
+            ORDER BY amount DESC
+        ) AS rnk
+    FROM orders
+) t
+WHERE rnk = 1;
