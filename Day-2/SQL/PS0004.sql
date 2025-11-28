@@ -1,16 +1,18 @@
--- Total orders per month (>2 orders)
+-- Duplicate emails / users with more than one email
 
-CREATE TABLE orders (
-    order_id INT PRIMARY KEY,
-    user_id INT,
-    order_date DATE
-);
+-- A : Emails used by more than one user 
+-- Find email addresses that are associated with more than one user.
+SELECT
+    email,
+    COUNT(*) AS user_count
+FROM users
+GROUP BY email
+HAVING COUNT(*) > 1;
 
-INSERT INTO orders VALUES
-(1, 101, '2025-11-01'),
-(2, 101, '2025-11-02'),
-(3, 101, '2025-11-10'),
-(4, 102, '2025-11-12'),
-(5, 102, '2025-10-15');
-
--- Count number of orders per month and return only months where total orders > 2.
+-- B : Users having more than one email (if you have user_emails table)
+SELECT
+    user_id,
+    COUNT(*) AS email_count
+FROM user_emails
+GROUP BY user_id
+HAVING COUNT(*) > 1;
