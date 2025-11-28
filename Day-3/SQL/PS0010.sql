@@ -1,16 +1,39 @@
--- 3 consecutive login days using LAG
+-- Top seller per day (with tie-breaker variant)
 
-CREATE TABLE logins (
-    id INT PRIMARY KEY,
-    user_id INT,
-    login_date DATE
-);
+-- For each sale_date, find the seller(s) with the highest amount.
+-- Later, we also defined a tie-breaker: if multiple sellers tie, pick the one with the smallest seller_id.
 
-INSERT INTO logins VALUES
-(1, 101, '2025-11-01'),
-(2, 101, '2025-11-02'),
-(3, 101, '2025-11-03'),
-(4, 102, '2025-11-01'),
-(5, 102, '2025-11-05');
+-- Approach A : CTE + JOIN (Keep Ties)
+WITH daily_max AS (
+    SELECT
+        sale_date,
+        MAX(amount) AS max_amount
+    FROM sales
+    GROUP BY sale_date
+)
+SELECT
+    s.sale_date,
+    s.seller_id,
+    s.amount
+FROM sales s
+JOIN daily_max d
+  ON s.sale_date = d.sale_date
+ AND s.amount    = d.max_amount;
 
--- Find users with 3 consecutive login days.
+-- Approach B : Window RANK (Keep Ties)
+SELECT
+    sale_date,
+    seller_id,
+    amount
+FROM (
+    SELECT
+        sale_date,
+        seller_id,
+        amount,
+        RANK() OVER (
+            PARTITION BY sale_date
+            ORDER BY amount DESC
+        ) AS rnk
+    FROM sales
+) t
+WHERE rnk = 1;
