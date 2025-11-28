@@ -1,6 +1,10 @@
-# Day 3 – SQL: Patterns & Window Function Mastery
+# Day 3 
 
-## Problems Solved
+## Overview
+Today I continued with SQL and started applying Python to strings and counting problems.
+
+
+## SQL Problems Solved
 
 7. **Users with total spend > 1000 in the last 3 days**
    - **Table:** `transactions(user_id, amount, txn_date, ...)`
@@ -51,6 +55,24 @@
     - **Concepts:**
       - Window `ROW_NUMBER()` over `PARTITION BY category ORDER BY sales DESC, product_id ASC`.
       - Selecting the row with `rn = 1` to enforce one winner per category.
+
+## Python Problems Solved
+
+1. **Count words in a sentence**
+   - **Concepts:** `str.split()`, length of a list.
+   - **Key takeaway:** Simple way to count words using splitting by spaces.
+
+2. **Extract all numbers from a string**
+   - **Concepts:** Regular expressions (`re.findall`), manual parsing with `isdigit()`.
+   - **Key takeaway:** How to detect digit sequences (`[0-9]+`) and convert them to integers.
+
+3. **Find the highest frequency of any number in a list**
+   - **Concepts:** Frequency counting using dictionary, tracking seen elements with loops.
+   - **Key takeaway:** How to count occurrences and derive the maximum frequency (foundation for “mode” logic).
+
+## Reflection
+   - Python is still feeling a bit heavy, but I’m slowly getting used to loops, counters, and string handling.
+   - Today’s practice is a good base for more data-structure-oriented questions later (like interview-style coding).
 
 ## Key Learnings
 
