@@ -1,43 +1,29 @@
 '''
-Find the highest frequency of any number in a list
+Sum of even numbers in a list
 
 Question:
-Given a list of integers, find the maximum number of times any value appears (i.e., the highest frequency).
+Given a list of integers, find the sum of all even numbers.
 
 Sample Input:
-my_list = [2, 5, 2, 7, 5, 2, 9]
+my_list = [10, 15, 22, 33, 40, 7]
 
 Expected Output:
-3
+72       # 10 + 22 + 40
 '''
 
-# Approach 1 : dictionary for frequency
-my_list = [2, 5, 2, 7, 5, 2, 9]
+# Approach 1 : For Loop
+my_list = [10, 15, 22, 33, 40, 7]
 
-freq = {}
+sum_even = 0
 for num in my_list:
-    if num in freq:
-        freq[num] += 1
-    else:
-        freq[num] = 1
+    if num % 2 == 0:
+        sum_even = sum_even + num
 
-max_freq = max(freq.values())
-print(max_freq)
+print(sum_even)
 
-# Approach 2 
-my_list = [2, 5, 2, 7, 5, 2, 9]
-seen = []
-counts = []
+# Approach 2 : sum + comprehension
+my_list = [10, 15, 22, 33, 40, 7]
+sum_even = sum(num for num in my_list if num % 2 == 0)
+print(sum_even)
 
-for num in my_list:
-    if num in seen:
-        continue
-    seen.append(num)
 
-    count = 0
-    for n in my_list:
-        if n == num:
-            count += 1
-    counts.append(count)
-
-print(max(counts))
