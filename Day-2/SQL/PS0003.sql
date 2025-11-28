@@ -1,17 +1,22 @@
 -- 2nd highest salary per department
 
+DROP TABLE IF EXISTS employees;
+
 CREATE TABLE employees (
-    emp_id INT PRIMARY KEY,
-    dept VARCHAR(20),
-    salary INT
+    emp_id   INT PRIMARY KEY,
+    emp_name VARCHAR(50),
+    dept     VARCHAR(50),
+    salary   INT
 );
 
-INSERT INTO employees VALUES
-(1, 'A', 6000),
-(2, 'A', 5000),
-(3, 'A', 3000),
-(4, 'B', 4000),
-(5, 'B', 3500);
+INSERT INTO employees (emp_id, emp_name, dept, salary) VALUES
+(1, 'Alice',   'Sales',     60000),
+(2, 'Bob',     'Sales',     75000),
+(3, 'Carol',   'HR',        50000),
+(4, 'David',   'HR',        90000),
+(5, 'Eve',     'IT',        120000),  -- global max
+(6, 'Frank',   'IT',        110000),  -- global 2nd max
+(7, 'Grace',   'Marketing', 45000);
 
 -- Find the 2nd highest salary in each department.
 
