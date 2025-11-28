@@ -1,19 +1,33 @@
--- Top seller with ROW_NUMBER tie-breaker
+-- Users whose last 3 orders are strictly increasing
 
-CREATE TABLE sales (
-    sale_id INT PRIMARY KEY,
-    sale_date DATE,
-    seller_id VARCHAR(10),
-    amount INT
-);
+-- For each user, look at their last three orders (by order_date, order_id).
+-- Return users where those three amounts are strictly increasing (oldest < middle < latest).
 
-INSERT INTO sales VALUES
-(1, '2025-11-25', 'A', 100),
-(2, '2025-11-25', 'B', 250),
-(3, '2025-11-25', 'C', 180),
-(4, '2025-11-26', 'A', 300),
-(5, '2025-11-26', 'B', 300),
-(6, '2025-11-26', 'C', 150);
-
--- For each day, pick exactly 1 seller with highest amount.
--- Tie-breaker: lowest seller_id.
+WITH ordered AS (
+    SELECT
+        user_id,
+        order_id,
+        order_date,
+        amount,
+        ROW_NUMBER() OVER (
+            PARTITION BY user_id
+            ORDER BY order_date DESC, order_id DESC
+        ) AS rn
+    FROM orders
+)
+, last3 AS (
+    -- Keep only the last 3 orders per user
+    SELECT *
+    FROM ordered
+    WHERE rn <= 3
+)
+SELECT
+    user_id
+FROM last3
+GROUP BY user_id
+HAVING
+    COUNT(*) = 3
+    AND MIN(CASE WHEN rn = 3 THEN amount END) <  -- oldest of the last 3
+        MIN(CASE WHEN rn = 2 THEN amount END)    -- middle
+    AND MIN(CASE WHEN rn = 2 THEN amount END) <
+        MIN(CASE WHEN rn = 1 THEN amount END);   -- latest
