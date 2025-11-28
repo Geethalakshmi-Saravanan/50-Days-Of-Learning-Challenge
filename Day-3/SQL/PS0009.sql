@@ -1,16 +1,24 @@
--- Max amount per user per day
+-- N consecutive login days (ROW_NUMBER trick)
 
-CREATE TABLE orders (
-    order_id INT PRIMARY KEY,
-    user_id INT,
-    order_date DATE
-);
+-- Find users who have at least 3 consecutive login days. (This is also the pattern you can extend to 4, 5 days, etc.)
+-- Shown for N = 4
+WITH numbered AS (
+    SELECT
+        user_id,
+        login_date,
+        ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY login_date) AS rn
+    FROM logins
+),
+grouped AS (
+    SELECT
+        user_id,
+        login_date,
+        rn,
+        DATE_SUB(login_date, INTERVAL rn DAY) AS grp_key
+    FROM numbered
+)
+SELECT user_id
+FROM grouped
+GROUP BY user_id, grp_key
+HAVING COUNT(*) >= 4;
 
-INSERT INTO orders VALUES
-(1, 101, '2025-11-01'),
-(2, 101, '2025-11-02'),
-(3, 101, '2025-11-10'),
-(4, 102, '2025-11-12'),
-(5, 102, '2025-10-15');
-
--- Find maximum order amount for each user on each date.
