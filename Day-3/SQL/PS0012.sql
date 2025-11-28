@@ -1,16 +1,21 @@
--- Monthly order grouping + sorting
+-- Top product per category (with tie-break rule)
 
-CREATE TABLE orders (
-    order_id INT PRIMARY KEY,
-    user_id INT,
-    order_date DATE
-);
+-- For each category, find the product with the highest sales.
+-- If multiple products tie on sales, choose the one with the smallest product_id.
 
-INSERT INTO orders VALUES
-(1, 101, '2025-11-01'),
-(2, 101, '2025-11-02'),
-(3, 101, '2025-11-10'),
-(4, 102, '2025-11-12'),
-(5, 102, '2025-10-15');
-
--- Return count of orders per month, sorted by highest → lowest.
+SELECT
+    category,
+    product_id,
+    sales
+FROM (
+    SELECT
+        category,
+        product_id,
+        sales,
+        ROW_NUMBER() OVER (
+            PARTITION BY category
+            ORDER BY sales DESC, product_id ASC
+        ) AS rn
+    FROM sales
+) t
+WHERE rn = 1;
