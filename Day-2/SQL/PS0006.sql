@@ -1,18 +1,26 @@
--- Top seller per day
+-- User-months with more than 2 orders
 
-CREATE TABLE sales (
-    sale_id INT PRIMARY KEY,
-    sale_date DATE,
-    seller_id VARCHAR(10),
-    amount INT
-);
+-- For each user and month, find how many orders they placed. Return only those user–month combinations having more than 2 orders, sorted by total_orders descending.
 
-INSERT INTO sales VALUES
-(1, '2025-11-25', 'A', 100),
-(2, '2025-11-25', 'B', 250),
-(3, '2025-11-25', 'C', 180),
-(4, '2025-11-26', 'A', 300),
-(5, '2025-11-26', 'B', 300),
-(6, '2025-11-26', 'C', 150);
+-- Approach A : Using DATE_FORMAT
+SELECT
+    user_id,
+    DATE_FORMAT(order_date, '%Y-%m') AS order_month,
+    COUNT(*) AS total_orders
+FROM orders
+GROUP BY
+    user_id,
+    DATE_FORMAT(order_date, '%Y-%m')
+HAVING COUNT(*) > 2
+ORDER BY total_orders DESC;
 
--- For each date, return the seller(s) with the highest amount.
+-- Approach B : Using YEAR/MONTH separately
+SELECT
+    user_id,
+    YEAR(order_date)  AS order_year,
+    MONTH(order_date) AS order_month,
+    COUNT(*) AS total_orders
+FROM orders
+GROUP BY user_id, YEAR(order_date), MONTH(order_date)
+HAVING COUNT(*) > 2
+ORDER BY total_orders DESC;
